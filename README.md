@@ -23,50 +23,40 @@ npm run lint
 ## Diagrams
 ```mermaid
 stateDiagram-v2
-    state fork_state <<fork>>
+
     state fork_state2 <<fork>>
-    [*] --> fork_state
-    fork_state --> Router.js
-    fork_state --> httpCommon.js
+    state fork_state3 <<fork>>
+
+    AddMissionCommander.vue --> fork_state3
+    MissionCommander.vue --> fork_state3
+    MissionCommandersList.vue --> fork_state3
+
+    AddExplorer.vue --> fork_state2
+    Explorer.vue --> fork_state2
+    ExplorerList.vue --> fork_state2
+
+    Router.js --> app.vue
+    app.vue --> main.js
+    main.js --> [*]
     
-    note right of Router.js
-      You call here all the components to use 
-      (those components are the different views
-      and set all routes)
-    end note
     
-    Router.js --> fork_state2
+
+    fork_state2 --> Router.js
+    fork_state3 --> Router.js
     
-    fork_state2 --> AddExplorer.vue
-    fork_state2 --> Explorer.vue
-    fork_state2 --> ExplorerList.vue
     
-    httpCommon.js --> ExplorerService.js
     
-    ExplorerService.js --> fork_state2
     
-    note left of httpCommon.js
-      Access to httpCommon protocol and 
-      define BaseUrl
-    end note
+    ExplorerService.js --> httpCommon.js
+    MissionCommanderService.js --> httpCommon.js
     
-    note left of ExplorerService.js
-      Create class and all the http endpoints
-      functions. 
-    end note
     
-     note right of AddExplorer.vue
-      Page that create a new explorer
-    end note
+    fork_state2 --> ExplorerService.js
+    fork_state3 --> MissionCommanderService.js
     
-    note right of Explorer.vue
-      Page to edit or delete an explorer 
-    end note
+
     
-    note right of ExplorerList.vue
-      Page where it show all the explorers
-      list
-    end note
+
  
     
 ```
