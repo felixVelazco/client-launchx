@@ -22,43 +22,38 @@ npm run lint
 
 ## Diagrams
 ```mermaid
-stateDiagram-v2
+flowchart TD
 
-    state fork_state2 <<fork>>
-    state fork_state3 <<fork>>
+    DB[(Database)] <--> httpCommon.js
 
-    AddMissionCommander.vue --> fork_state3
-    MissionCommander.vue --> fork_state3
-    MissionCommandersList.vue --> fork_state3
+        httpCommon.js --> ExplorerService.js
+    subgraph Explorers
 
-    AddExplorer.vue --> fork_state2
-    Explorer.vue --> fork_state2
-    ExplorerList.vue --> fork_state2
+
+        ExplorerService.js --> AddExplorer.vue 
+        ExplorerService.js --> Explorer.vue
+        ExplorerService.js --> ExplorerList.vue
+    end
+    
+        httpCommon.js --> MissionCommanderService.js
+    subgraph Mission Commanders
+
+        MissionCommanderService.js --> AddMissionCommander.vue
+        MissionCommanderService.js --> MissionCommander.vue
+        MissionCommanderService.js --> MissionCommandersList.vue
+    end
+
+    AddMissionCommander.vue --> Router.js
+    MissionCommander.vue --> Router.js
+    MissionCommandersList.vue --> Router.js
+
+    AddExplorer.vue --> Router.js
+    Explorer.vue --> Router.js
+    ExplorerList.vue --> Router.js
 
     Router.js --> app.vue
     app.vue --> main.js
-    main.js --> [*]
-    
-    
-
-    fork_state2 --> Router.js
-    fork_state3 --> Router.js
-    
-    
-    
-    
-    ExplorerService.js --> httpCommon.js
-    MissionCommanderService.js --> httpCommon.js
-    
-    
-    fork_state2 --> ExplorerService.js
-    fork_state3 --> MissionCommanderService.js
-    
-
-    
-
- 
-    
+   
 ```
 
 
